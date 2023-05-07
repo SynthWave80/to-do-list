@@ -7,6 +7,12 @@ export const exampleRouter = createTRPCRouter({
     return ctx.prisma.note.findMany({});
   }),
 
+  getNote: publicProcedure.input(z.string({})).query(({ ctx, input }) => {
+    return ctx.prisma.note.findUnique({
+      where: { id: input },
+    });
+  }),
+
   addNote: publicProcedure
     .input(
       z.object({
