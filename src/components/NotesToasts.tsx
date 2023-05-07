@@ -53,7 +53,10 @@ function BasicExample(props: { notesdata: Note[] | undefined }) {
   return (
     <div>
       {data?.map((note) => (
-        <Toast key={note.id} onClose={() => callDeteteNote(note.id)}>
+        <Toast
+          key={note.id}
+          onClose={async () => await callDeteteNote(note.id)}
+        >
           <Toast.Header className="gap-1">
             <strong className="me-auto pl-2">{note.title}</strong>
             <small>{note.createdAt.getMinutes()} mins ago</small>

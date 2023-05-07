@@ -6,6 +6,7 @@ import AddNoteForm from "y/components/AddNoteForm";
 import NotesToasts from "y/components/NotesToasts";
 import { api } from "y/utils/api";
 import { useRouter } from "next/router";
+import Loader from "y/components/Loader";
 
 const Notes = ({
   data,
@@ -18,14 +19,20 @@ const Notes = ({
   }, [data.userId]);
   const router = useRouter();
 
-  const { data: notesdata, refetch } = api.example.getAll.useQuery();
+  const { data: notesdata, refetch, isLoading } = api.example.getAll.useQuery();
 
   return (
     <div>
-      notes
-      <LogOutButton />
-      <AddNoteForm />
-      <NotesToasts notesdata={notesdata} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          notes
+          <LogOutButton />
+          <AddNoteForm />
+          <NotesToasts notesdata={notesdata} />
+        </div>
+      )}
     </div>
   );
 };
